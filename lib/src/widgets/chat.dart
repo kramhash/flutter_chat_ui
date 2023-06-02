@@ -97,6 +97,7 @@ class Chat extends StatefulWidget {
     this.userAgent,
     this.useTopSafeAreaInset,
     this.videoMessageBuilder,
+    this.staticMessageWidth,
   });
 
   /// See [Message.audioMessageBuilder].
@@ -182,6 +183,8 @@ class Chat extends StatefulWidget {
   /// See [Message.imageMessageBuilder].
   final Widget Function(types.ImageMessage, {required int messageWidth})?
       imageMessageBuilder;
+
+  final int? staticMessageWidth;
 
   /// This feature allows you to use a custom image provider.
   /// This is useful if you want to manage image loading yourself, or if you need to cache images.
@@ -432,8 +435,9 @@ class ChatState extends State<Chat> {
         messageWidget = widget.systemMessageBuilder?.call(message) ??
             SystemMessage(message: message.text);
       } else {
-        final messageWidth =
-            widget.showUserAvatars && message.author.id != widget.user.id
+        final messageWidth = widget.staticMessageWidth != null
+            ? widget.staticMessageWidth ?? 440
+            : widget.showUserAvatars && message.author.id != widget.user.id
                 ? min(constraints.maxWidth * 0.72, 440).floor()
                 : min(constraints.maxWidth * 0.78, 440).floor();
 
