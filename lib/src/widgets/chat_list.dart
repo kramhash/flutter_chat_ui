@@ -280,7 +280,7 @@ class _ChatListState extends State<ChatList>
               ),
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 4),
               sliver: SliverAnimatedList(
                 findChildIndexCallback: (Key key) {
                   if (key is ValueKey<Object>) {
